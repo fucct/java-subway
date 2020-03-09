@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class ArrivalData {
@@ -17,7 +16,7 @@ public class ArrivalData {
         this.arrivalData = arrivalData;
     }
 
-    public void parsingData() throws Exception{
+    public void parsingData() throws Exception {
         try {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(arrivalData);
@@ -27,21 +26,21 @@ public class ArrivalData {
 
             for (int i = 0; i < arr.size(); i++) {
                 JSONObject obj = (JSONObject) arr.get(i);
-                String arrivalDate = (String)obj.get("recptnDt");
+                String arrivalDate = (String) obj.get("recptnDt");
+                String dest = (String) obj.get("trainLineNm");
                 long arrivalTime = format.parse(arrivalDate).getTime();
                 long nowTime = now.getTime();
                 long leftTime = arrivalTime - nowTime;
-                System.out.println("도착 시간 : " + new Date(arrivalTime));
-                System.out.println("현재 : " + new Date(nowTime));
-                System.out.println("남은 시간 : " + leftTime/1000/60 +"분" + leftTime%1000%60+"초");
-                /*String tmp = arrivalDate.split(" ")[1];
-                Date arrival = format.parse(tmp);
-                String left = format.format(new Date(arrival.getTime() - date.getTime()));
-                System.out.println(obj.get("trainLineNm") + " : " + arrivalDate);
-                System.out.println(obj.get("trainLineNm") + " : " + left);*/
+                System.out.println();
+                System.out.println(i);
+                System.out.println("<" + dest + ">");
+                System.out.println(obj.get("arvlMsg2"));
+
             }
         } catch (ParseException pe) {
             throw new JsonParseException("해당 데이터를 불러올 수 없습니다.");
+        } catch (NullPointerException ne){
+            System.out.println("엥");
         }
     }
 }
