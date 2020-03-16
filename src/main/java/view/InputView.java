@@ -16,4 +16,10 @@ public class InputView {
         System.out.println("호선 이름을 입력해 주세요 : ");
         return scanner.nextLine();
     }
+
+    public static String upOrDown() {
+        System.out.println("내선/외선 을 선택해 주세요");
+        System.out.println("잠실새내 방면은 0, 잠실나루 방면은 1을 입력해 주세요 : ");
+        return scanner.nextLine();
+    }
 }

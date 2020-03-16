@@ -6,10 +6,12 @@ import exception.WrongStationNameException;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StationName {
-    private static final List<String> stationList = new ArrayList<>();
+    private static final Map<String, String> stationList = new HashMap<>();
     private final String stationName;
 
     static {
@@ -18,7 +20,8 @@ public class StationName {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String temp;
             while ((temp = br.readLine()) != null) {
-                stationList.add(temp);
+                String[] tmp = temp.split(" ");
+                stationList.put(tmp[0], tmp[1]);
             }
         } catch (IOException ie) {
             throw new MissingSubwayNameListException("지하철 이름 목록 파일이 존재하지 않습니다.");
@@ -34,7 +37,7 @@ public class StationName {
     }
 
     private String convertToValidName(String stationName) {
-        return stationList.stream()
+        return stationList.values().stream()
                 .filter(name -> name.length() >= stationName.length())
                 .filter(name -> name.substring(0, stationName.length()).equals(stationName))
                 .findAny()

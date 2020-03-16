@@ -32,7 +32,6 @@ public class ArrivalData {
                 long nowTime = now.getTime();
                 long leftTime = arrivalTime - nowTime;
                 System.out.println();
-                System.out.println(i);
                 System.out.println("<" + dest + ">");
                 System.out.println(obj.get("arvlMsg2"));
 
